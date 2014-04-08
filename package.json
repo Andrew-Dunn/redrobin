@@ -1,0 +1,19 @@
+{
+  "name": "redrobin",
+  "version": "0.0.0",
+  "description": "Twitter Service for Cloud Computing RMIT Class 2014",
+  "main": "web.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git@heroku.com:redrobin.git"
+  },
+  "author": "matt witherow",
+  "license": "ISC",
+  "dependencies": {
+    "logfmt": "^1.1.2",
+    "express": "^3.5.1"
+  }
+}
