@@ -4,7 +4,7 @@
   "description": "Twitter Service for Cloud Computing RMIT Class 2014",
   "main": "web.js",
   "scripts": {
-    "start": "node web.js",
+    "start": "node web.js"
   },
   "repository": {
     "type": "git",
@@ -18,7 +18,6 @@
     "mapred": "^0.1.0",
     "sentiment": "^1.0.0-alpha",
     "mtwitter": "^1.5.3",
-    "hiredis": "0.1.10",
-    "redis" : "0.6.0"
+    "redis-url": "^0.2.0"
   }
 }
