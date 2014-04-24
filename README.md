@@ -6,7 +6,7 @@ A quick mashup of existing modules and services to expiriment with Node.js and f
 
 ### RedRobins purpose
 + To scrape a certain set of tweets.
-+ To archive thesee scrapings).   
++ To archive these scrapings.   
 + To perform analysis of results and act as a gateway service to other services. 
 + Primarily, to feed a sentiment analysis engine. 
 
@@ -14,7 +14,7 @@ A quick mashup of existing modules and services to expiriment with Node.js and f
 
 Fun Facts From Wikipedia
 >The American Robin (Turdus migratorius), also known as the robin, is a migratory songbird of the thrush family. 
->It is named after the European Robin[2] because of its reddish-orange breast.
+>It is named after the European Robin because of its reddish-orange breast.
 >
 >Red Robin Gourmet Burgers is a chain of casual dining restaurants founded in 1969 in Seattle, Washington
 >
