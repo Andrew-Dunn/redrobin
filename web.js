@@ -2,7 +2,14 @@
 var express = require("express");
 var logfmt = require("logfmt");
 var twitter = require("mtwitter");
-var redis = require("redis").createClient();
+if (process.env.REDISTOGO_URL) {
+    //redistogo connection
+    var rtg   = require("url").parse(process.env.REDISTOGO_URL);
+    var redis = require("redis").createClient(rtg.port, rtg.hostname);
+    redis.auth(rtg.auth.split(":")[1]);
+} else {
+	var redis = require("redis").createClient();
+}
 
 var app = express();
 app.use(logfmt.requestLogger());
@@ -16,7 +23,7 @@ mTwit = new twitter({
 
 app.get('/', function(req, res) {
 
-mTwit.get('search/tweets',
+	mTwit.get('search/tweets',
 	{	
 		q: "i feel", 
 		geocode: "-37.777,144.971,50km",
