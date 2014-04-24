@@ -17,7 +17,7 @@
     "logfmt": "^1.1.2",
     "express": "^3.5.1",
     "mapred": "^0.1.0",
-    "ntwitter": "^0.5.0",
-    "sentiment": "^1.0.0-alpha"
+    "sentiment": "^1.0.0-alpha",
+    "mtwitter": "^1.5.3"
   }
 }
