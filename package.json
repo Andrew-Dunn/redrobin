@@ -4,6 +4,7 @@
   "description": "Twitter Service for Cloud Computing RMIT Class 2014",
   "main": "web.js",
   "scripts": {
+    "start": "node web.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
@@ -14,6 +15,9 @@
   "license": "ISC",
   "dependencies": {
     "logfmt": "^1.1.2",
-    "express": "^3.5.1"
+    "express": "^3.5.1",
+    "mapred": "^0.1.0",
+    "ntwitter": "^0.5.0",
+    "sentiment": "^1.0.0-alpha"
   }
 }
