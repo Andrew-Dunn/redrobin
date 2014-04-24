@@ -2,7 +2,7 @@
 var express = require("express");
 var logfmt = require("logfmt");
 var twitter = require("mtwitter");
-//var twittup	= require("./twittup");
+var redis = require("redis").createClient();
 
 var app = express();
 app.use(logfmt.requestLogger());
