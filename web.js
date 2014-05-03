@@ -29,13 +29,12 @@ Parse.initialize("FK3rFd4BfRgX2713I0CMf6R52437IMB00gxtbofB",
 	"ZCJOEfbwnCLAI7OyZDl7C8sToGDk7gPIUAIUImJq");
 
 app.get('/', function(req, res) {
-	var options = {};
-	options["/calc"] = "Get the emotional index for the current day";
 	options["/calc/:date"] = "Get the emotional index for the specified day";
 	var today = new Date();
 	today = today.ymd();
 	console.log("Todays Date: "+today);
 	engine.getTwitterSentiment(res, today, engine.calculateTwitterSentiment, true);
+
 });
 
 //add a date util
