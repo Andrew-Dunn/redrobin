@@ -13,7 +13,7 @@ Parse.initialize("FK3rFd4BfRgX2713I0CMf6R52437IMB00gxtbofB",
 app.get('/', function(req, res) {
 	var options = {};
 	options["/calc"] = "Get the emotional index for the current day";
-	options["/calc/:date"] = "Get the emotional index for the specified day";
+	options["/calc/:date"] = "Get the emotional index for the specified day. <YYYY-MM-DD>";
 	res.send(options);
 });
 
