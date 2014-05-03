@@ -3,10 +3,28 @@ var express = require("express");
 var logfmt = require("logfmt");
 var Parse = require('parse').Parse;
 var engine = require('./engine');
+var jade = require('jade');
+var stylus = require('stylus');
+var nib = require('nib');
+
 var melbourne  = "-37.777,144.971,50km";
 engine.setLocation(melbourne);
-var app = express();
+var app = express()
+function compile(str, path) {
+  return stylus(str)
+    .set('filename', path)
+    .use(nib())
+}
+app.set('views', __dirname + '/views')
+app.set('view engine', 'jade')
+app.use(stylus.middleware(
+  { src: __dirname + '/public'
+  , compile: compile
+  }
+))
+app.use(express.static(__dirname + '/public'))
 app.use(logfmt.requestLogger());
+
 Parse.initialize("FK3rFd4BfRgX2713I0CMf6R52437IMB00gxtbofB",
 	"ZCJOEfbwnCLAI7OyZDl7C8sToGDk7gPIUAIUImJq");
 
