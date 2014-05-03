@@ -14,7 +14,7 @@ function setLocation(loc){
 	location = loc;
 }
 
-function getExistingSentimentData(res, day, callback){
+function getExistingSentimentData(res, day, callback, pretty){
 
 	// Create the Parse object.
 	var SentimentIndex = Parse.Object.extend("SentimentIndex");
@@ -42,7 +42,7 @@ function getExistingSentimentData(res, day, callback){
 			}else{
 				sentimentIndex.set("day", day);
 			}
-			callback(res, day, sentimentIndex, saveRequired);
+			callback(res, day, sentimentIndex, saveRequired, pretty);
 		},
 		error: function(error) {
 			console.log("Error: " + error.code + " " + error.message);
@@ -51,13 +51,13 @@ function getExistingSentimentData(res, day, callback){
 	});
 }
 
-function getDaysRecentTweetSentiment(res, day, sentimentIndex, saveRequired){
+function getDaysRecentTweetSentiment(res, day, sentimentIndex, saveRequired, pretty){
 		//scrape twitter data, take a sample, and map reduce the values into a sentiment index.
 		mTwit.get('search/tweets',
 		{	
-			q: "i feel", 
+			q: "", 
 			geocode: location,
-			count: "10",
+			count: "100",
 			result_type:"recent"
 		},
 		function(err, item) {
@@ -113,9 +113,17 @@ function getDaysRecentTweetSentiment(res, day, sentimentIndex, saveRequired){
 		sentimentIndex.save(null, {
 			success: function(result) {
 		   		//add the sentiment to the response json
-		   		sample["sentimentIndex"] = sum;
-		   		res.contentType('application/json');
-		   		res.send(JSON.stringify(sample));
+
+		   		if(pretty){
+		   			res.render('index',
+		   				{ index : sum,
+		   				  date:   day,
+		   				  tweets: sample["tweets"] });
+		   		}else{
+		   			sample["sentimentIndex"] = sum;
+		   			res.contentType('application/json');
+		   			res.send(JSON.stringify(sample));	
+		   		}
 		   	},
 		   	error: function(result, error) {
 		   		res.send(JSON.stringify(error));

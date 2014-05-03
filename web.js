@@ -32,7 +32,10 @@ app.get('/', function(req, res) {
 	var options = {};
 	options["/calc"] = "Get the emotional index for the current day";
 	options["/calc/:date"] = "Get the emotional index for the specified day";
-	res.send(options);
+	var today = new Date();
+	today = today.ymd();
+	console.log("Todays Date: "+today);
+	engine.getTwitterSentiment(res, today, engine.calculateTwitterSentiment, true);
 });
 
 //add a date util
@@ -47,7 +50,7 @@ app.get('/calc', function(req, res) {
 	var today = new Date();
 	today = today.ymd();
 	console.log("Todays Date: "+today);
-	engine.getTwitterSentiment(res, today, engine.calculateTwitterSentiment);
+	engine.getTwitterSentiment(res, today, engine.calculateTwitterSentiment, false);
 });
 
 
@@ -81,7 +84,7 @@ app.get('/calc/:date', function(req, res) {
 			}
 			else{
 				var sentimentIndex = new SentimentIndex();
-				engine.calculateTwitterSentiment(res, req.params.date, sentimentIndex, true);
+				engine.calculateTwitterSentiment(res, req.params.date, sentimentIndex, true, false);
 			}	
 		},
 		error: function(error) {

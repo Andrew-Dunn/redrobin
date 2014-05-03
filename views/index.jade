@@ -1,0 +1,27 @@
+extend layout
+
+block jumbo-content
+  h1 Melbourne's Sentiment Index
+  p.lead
+    a.btn.btn-lg.btn-success(href='#', role='button') #{index} 
+  p
+    | For #{date}.
+  p
+    | (50% is pefectly balanced, 100% is pure Joy).
+
+
+block sub-content
+  .row.marketing
+    .col-lg-6 
+      h4 Tweet
+      p= tweets[0]["text"]
+
+      h4 Tweet
+      p= tweets[1]["text"] 
+
+    .col-lg-6 
+      h4 Tweet
+      p= tweets[2]["text"]
+
+      h4 Tweet
+      p= tweets[3]["text"] 
