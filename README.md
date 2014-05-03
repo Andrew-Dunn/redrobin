@@ -1,15 +1,40 @@
-Red Robin
+Red Robin API [![Build Status](https://travis-ci.org/mjwitherow/redrobin.svg?branch=master)](https://travis-ci.org/mjwitherow/redrobin)
 =========
 
-A quick mashup of existing modules and services to expiriment with Node.js and fullfill academic requirements at Melbourne's RMIT Univeristy. 
+### Overview
 
+Calculate the sentimental index of Melbourne Australia's twittershpere for a given day.
+This is a naive and hacked together prototype for academic use. 
+
+An Index of 50% represents perfect emotional balance.
+65% would suggest a moderate increase in positive sentiment (Happyness, satisfaction etc).
+10% would suggest a severe decrease in sentiment (depression, fear etc).
+
+Please note straight out of the box, the tweets are set low at 10 per scrape for testing purposes. 
+Also the indexs are saved to Parse.com. Hence both twitter and Parse keys are needed. 
+
+It's a quick dirty mashup of existing modules and services to expiriment with Node.js and fullfill academic requirements at Melbourne's RMIT Univeristy. 
+
+### Installation
+`git clone git@github.com:mjwitherow/redrobin.git`
+Run locally.
+`foreman web.js`
+
+### Usage
+
+Calculate the sentimental index of Melbourne's recent tweets today.
+`<host>/calc/` 
+
+Calculate the sentimental index of Melbourne's tweets for a given day (YYYY-MM-DD)
+`<host>/calc/:date` 
+
+The API default route will list available options. 
 
 ### RedRobins purpose
 + To scrape a certain set of tweets.
-+ To archive these scrapings.   
++ To archive calculations from these scrapings.   
 + To perform analysis of results and act as a gateway service to other services. 
-+ Primarily, to feed a sentiment analysis engine. 
-
++ Primarily, to feed other engines. 
 
 
 Fun Facts From Wikipedia
