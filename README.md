@@ -16,16 +16,16 @@ Also the indexs are saved to Parse.com. Hence both twitter and Parse keys are ne
 It's a quick dirty mashup of existing modules and services to expiriment with Node.js and fullfill academic requirements at Melbourne's RMIT Univeristy. 
 
 ### Installation
-`git clone git@github.com:mjwitherow/redrobin.git`
-Run locally.
-`foreman web.js`
+`git clone git@github.com:mjwitherow/redrobin.git`  
+Run locally.  
+`foreman start`
 
 ### Usage
 
-Calculate the sentimental index of Melbourne's recent tweets today.
+Calculate the sentimental index of Melbourne's recent tweets today.  
 `<host>/calc/` 
 
-Calculate the sentimental index of Melbourne's tweets for a given day (YYYY-MM-DD)
+Calculate the sentimental index of Melbourne's tweets for a given day (YYYY-MM-DD)  
 `<host>/calc/:date` 
 
 The API default route will list available options. 
