@@ -3,18 +3,38 @@ var express = require("express");
 var logfmt = require("logfmt");
 var Parse = require('parse').Parse;
 var engine = require('./engine');
+var jade = require('jade');
+var stylus = require('stylus');
+var nib = require('nib');
+
 var melbourne  = "-37.777,144.971,50km";
 engine.setLocation(melbourne);
-var app = express();
+var app = express()
+function compile(str, path) {
+  return stylus(str)
+    .set('filename', path)
+    .use(nib())
+}
+app.set('views', __dirname + '/views')
+app.set('view engine', 'jade')
+app.use(stylus.middleware(
+  { src: __dirname + '/public'
+  , compile: compile
+  }
+))
+app.use(express.static(__dirname + '/public'))
 app.use(logfmt.requestLogger());
+
 Parse.initialize("FK3rFd4BfRgX2713I0CMf6R52437IMB00gxtbofB",
 	"ZCJOEfbwnCLAI7OyZDl7C8sToGDk7gPIUAIUImJq");
 
 app.get('/', function(req, res) {
-	var options = {};
-	options["/calc"] = "Get the emotional index for the current day";
-	options["/calc/:date"] = "Get the emotional index for the specified day. <YYYY-MM-DD>";
-	res.send(options);
+	options["/calc/:date"] = "Get the emotional index for the specified day";
+	var today = new Date();
+	today = today.ymd();
+	console.log("Todays Date: "+today);
+	engine.getTwitterSentiment(res, today, engine.calculateTwitterSentiment, true);
+
 });
 
 //add a date util
@@ -29,7 +49,7 @@ app.get('/calc', function(req, res) {
 	var today = new Date();
 	today = today.ymd();
 	console.log("Todays Date: "+today);
-	engine.getTwitterSentiment(res, today, engine.calculateTwitterSentiment);
+	engine.getTwitterSentiment(res, today, engine.calculateTwitterSentiment, false);
 });
 
 
@@ -63,7 +83,7 @@ app.get('/calc/:date', function(req, res) {
 			}
 			else{
 				var sentimentIndex = new SentimentIndex();
-				engine.calculateTwitterSentiment(res, req.params.date, sentimentIndex, true);
+				engine.calculateTwitterSentiment(res, req.params.date, sentimentIndex, true, false);
 			}	
 		},
 		error: function(error) {
