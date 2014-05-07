@@ -124,20 +124,30 @@ function getDaysRecentTweetSentiment(res, day, sentimentIndex, saveRequired, pre
 						// Make the tweets pretty
 						var sampleCount = sample.tweets.length;
 						var left = sampleCount;
+
+						// For each tweet, fetch its embeddable HTML code
+						// TODO This is very slow atm. This should be offloaded to AJAX for
+						// maximum responsiveness.
 						for (var i = 0; i < sampleCount; i++) {
+							// The callback will be bound to the index in order for it to
+							// modify the relevant sample tweets JSON object.
 							var index = {'index': i};
 							twitter.get('statuses/oembed',
 							{
 								id: sample.tweets[i].id
 							},
 							(function(err, item) {
+								var idx = this.index;
 								if (err) {
+									// Fallback to using the tweet text.
+									sample.tweets[idx].html = sample.tweets[idx].text;
 									console.warn("Unable to retrieve embedded tweet: "+err);
 									console.log(item);
 								} else {
-									sample.tweets[this.index].html = item.html;
+									sample.tweets[idx].html = item.html;
 								}
 
+								// Only render once all embedded code has been retrieved.
 								if (--left == 0)
 								{
 									doRender();
@@ -152,7 +162,7 @@ function getDaysRecentTweetSentiment(res, day, sentimentIndex, saveRequired, pre
 		   		}
 		   	},
 		   	error: function(result, error) {
-		   		res<Down>send(JSON.stringify(error));
+		   		res.send(JSON.stringify(error));
 		   	}
 		   });
 	});
