@@ -1,9 +1,9 @@
 
-var twitter = require("mtwitter");
+var Twitter = require("mtwitter");
 var sentiment = require('sentiment');
 var Parse = require('parse').Parse;
 var location = "";
-mTwit = new twitter({
+twitter = new Twitter({
 	consumer_key: 'RG7hca16EGx7OtAQ8JXRfJ5I8',
 	consumer_secret: 'f8xIE16p4ol2AZhxGwITV3rdtQ1l2JifGOV1IhDs6zwRJJlV19',
 	access_token_key: '635348000-17rt0Ycpij1s20Zf9QWN9ASBgf5YK4O6zl9fl4I8',
@@ -53,7 +53,7 @@ function getExistingSentimentData(res, day, callback, pretty){
 
 function getDaysRecentTweetSentiment(res, day, sentimentIndex, saveRequired, pretty){
 		//scrape twitter data, take a sample, and map reduce the values into a sentiment index.
-		mTwit.get('search/tweets',
+		twitter.get('search/tweets',
 		{	
 			q: "", 
 			geocode: location,
@@ -113,12 +113,38 @@ function getDaysRecentTweetSentiment(res, day, sentimentIndex, saveRequired, pre
 		sentimentIndex.save(null, {
 			success: function(result) {
 		   		//add the sentiment to the response json
+					var doRender = function doRender() {
+						res.render('index',
+							{ index : sum,
+								date:   day,
+								tweets: sample["tweets"] });
+					};
 
 		   		if(pretty){
-		   			res.render('index',
-		   				{ index : sum,
-		   				  date:   day,
-		   				  tweets: sample["tweets"] });
+						// Make the tweets pretty
+						var sampleCount = sample.tweets.length;
+						var left = sampleCount;
+						for (var i = 0; i < sampleCount; i++) {
+							var index = {'index': i};
+							twitter.get('statuses/oembed',
+							{
+								id: sample.tweets[i].id
+							},
+							(function(err, item) {
+								if (err) {
+									console.warn("Unable to retrieve embedded tweet: "+err);
+									console.log(item);
+								} else {
+									sample.tweets[this.index].html = item.html;
+								}
+
+								if (--left == 0)
+								{
+									doRender();
+								}
+								return;
+							}).bind(index));
+						}
 		   		}else{
 		   			sample["sentimentIndex"] = sum;
 		   			res.contentType('application/json');
@@ -126,7 +152,7 @@ function getDaysRecentTweetSentiment(res, day, sentimentIndex, saveRequired, pre
 		   		}
 		   	},
 		   	error: function(result, error) {
-		   		res.send(JSON.stringify(error));
+		   		res<Down>send(JSON.stringify(error));
 		   	}
 		   });
 	});

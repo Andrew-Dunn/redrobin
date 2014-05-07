@@ -14,14 +14,14 @@ block sub-content
   .row.marketing
     .col-lg-6 
       h4 Tweet
-      p= tweets[0]["text"]
+      p!= tweets[0]["html"]
 
       h4 Tweet
-      p= tweets[1]["text"] 
+      p!= tweets[1]["html"] 
 
     .col-lg-6 
       h4 Tweet
-      p= tweets[2]["text"]
+      p!= tweets[2]["html"]
 
       h4 Tweet
-      p= tweets[3]["text"] 
+      p!= tweets[3]["html"] 
