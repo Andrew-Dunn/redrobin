@@ -115,7 +115,7 @@ function getDaysRecentTweetSentiment(res, day, sentimentIndex, saveRequired, pre
 		   		//add the sentiment to the response json
 					var doRender = function doRender() {
 						res.render('index',
-							{ index : sum,
+							{ index : Math.round(sum * 10) / 10,
 								date:   day,
 								tweets: sample["tweets"] });
 					};
